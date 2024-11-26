@@ -1,5 +1,0 @@
-[25/Nov/2024:12:13:01 +0000] 404 - GET http localhost "/api" [Client 172.18.0.1] [Length 183] [Gzip 3.21] "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" "https://devopsmaestro.hashnode.dev/"
-[25/Nov/2024:12:13:04 +0000] 400 - GET http localhost "/favicon.ico" [Client 127.0.0.1] [Length 230] [Gzip -] "-" "-"
-[25/Nov/2024:12:13:14 +0000] 404 - GET http localhost "/docs" [Client 172.18.0.1] [Length 183] [Gzip 3.21] "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" "https://devopsmaestro.hashnode.dev/"
-[25/Nov/2024:12:13:39 +0000] 200 - GET http proxy.localhost "/" [Client 172.18.0.1] [Length 568] [Gzip 1.86] "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" "https://devopsmaestro.hashnode.dev/"
-[25/Nov/2024:15:09:25 +0000] 200 - HEAD http 192.168.137.95 "/" [Client 172.18.0.1] [Length 0] [Gzip -] "curl/8.5.0" "-"
