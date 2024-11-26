@@ -1,0 +1,82 @@
+version: "3.8"
+services:
+  nginx_proxy:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: nginx_proxy_manager
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "8090:81"
+      - "443:443"
+    volumes:
+      - data:/data
+      - letsencrypt:/etc/letsencrypt
+      #- ./nginx/nginx.dev.conf:/data/nginx/custom/http_top.conf
+    depends_on:
+      - frontend
+      - backend
+      - db
+      - adminer  
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: "http://localhost:8000"
+    ports:
+      - "5173:5173"
+      - "3000:80"
+    environment:
+      - DOMAIN=localhost
+    depends_on:
+      - backend
+    env_file:
+      - frontend/.env
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      DOMAIN: localhost
+      ENVIRONMENT: local
+      BACKEND_CORS_ORIGINS: http://localhost,http://localhost:5173,https://localhost,https://localhost:5173,http://localhost:3000
+      SECRET_KEY: changethis123
+      FIRST_SUPERUSER: chanllenge@devopsdojo.com
+      FIRST_SUPERUSER_PASSWORD: devopsdojo57
+      POSTGRES_SERVER: db
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: app
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: changethis123
+    volumes:
+      - ./backend/db:/var/lib/postgresql/data/app
+    env_file:
+      - backend/.env
+
+  db:
+    image: postgres:17-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD: changethis123
+      POSTGRES_USER: app
+      POSTGRES_DB: app
+
+  adminer:
+    image: adminer
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres_data:
+  data:
+  letsencrypt:
